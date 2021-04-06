@@ -5,7 +5,6 @@
 
 from bs4 import BeautifulSoup
 import requests, json, sys
-from json import JSONEncoder
 from fcache.cache import FileCache
 from urllib.parse import urlparse, urljoin
 import secrets # file that contains your API key
@@ -48,13 +47,6 @@ class NationalSite:
         '''
         str = self.name+" ("+self.category+"): "+self.address+" "+self.zipcode
         return str
-
-class NationalSiteEncoder(JSONEncoder):
-    def default(self, o):
-        return o.__dict__
-
-def nationalSiteDecoder(siteDict):
-    return namedtuple('X', siteDict.keys())(*siteDict.values())
 
 def build_state_url_dict():
     ''' Make a dictionary that maps state name to state page url from "https://www.nps.gov"
